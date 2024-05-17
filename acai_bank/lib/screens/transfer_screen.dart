@@ -8,6 +8,8 @@ class TransferScreen extends StatelessWidget {
   // Controlador para o campo de texto de valor
   final TextEditingController _controller = TextEditingController();
 
+  TransferScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -5,11 +5,13 @@ import '../models/balance_model.dart';
 
 // Tela inicial da aplicação
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Banco Digital'), // Título no cabeçalho da tela
+        title: Text('Açai Bank'), // Título no cabeçalho da tela
       ),
       body: HomeContent(), // Conteúdo principal da tela
     );

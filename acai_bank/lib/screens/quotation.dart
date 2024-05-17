@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 // Nova Tela
 class Quotation extends StatelessWidget {
+  const Quotation({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
