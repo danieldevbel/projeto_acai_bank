@@ -1,9 +1,9 @@
+import 'package:acai_bank/screens/quotation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'models/balance_model.dart';
 import 'screens/home_screen.dart';
-import 'screens/new_screen.dart'; // Importar a nova tela
 import 'screens/transfer_screen.dart';
 
 // Ponto de entrada da aplicação
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomeScreen(), // Tela inicial
         '/transfer': (context) => TransferScreen(), // Tela de transferência
-        '/newScreen': (context) => NewScreen(), // Nova tela
+        '/newScreen': (context) => Quotation(), // Nova tela
       },
     );
   }

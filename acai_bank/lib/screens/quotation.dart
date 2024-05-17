@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Nova Tela
-class NewScreen extends StatelessWidget {
+class Quotation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +10,7 @@ class NewScreen extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'Conteúdo da Nova Tela',
+          'Conteúdo da Tela de cotação',
           style: TextStyle(fontSize: 24),
         ),
       ),

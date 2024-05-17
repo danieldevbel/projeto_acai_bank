@@ -84,7 +84,7 @@ class HomeContent extends StatelessWidget {
               // Navega para a nova tela
               Navigator.pushNamed(context, '/newScreen');
             },
-            child: Text('Nova Tela'),
+            child: Text('Tela Cotação'),
             style: ElevatedButton.styleFrom(
               minimumSize: Size(double.infinity, 40), // Botão de largura total
             ),
