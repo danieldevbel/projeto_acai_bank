@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildGrey(String text) {
     return Text(
       text,
-      style: TextStyle(color: Colors.grey),
+      style: TextStyle(color: const Color.fromARGB(255, 59, 58, 58)),
     );
   }
 
