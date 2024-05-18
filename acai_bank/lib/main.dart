@@ -1,3 +1,4 @@
+import 'package:acai_bank/screens/login.dart';
 import 'package:acai_bank/screens/quotation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,12 +29,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', // Rota inicial
       routes: {
-        '/': (context) => HomeScreen(), // Tela inicial
+        '/': (context) => LoginPage(), // tela login
+        '/home': (context) => HomeScreen(), // Tela inicial
         '/transfer': (context) => TransferScreen(), // Tela de transferência
         '/newScreen': (context) => Quotation(), // Nova tela
       },
     );
   }
-  
 }
-

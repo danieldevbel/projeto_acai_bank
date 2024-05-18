@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 // Definição da página de login como um widget stateful
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -174,6 +175,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLoginButton() {
     return ElevatedButton(
       onPressed: () {
+        Navigator.pushReplacementNamed(context, '/home');
         // Ação ao pressionar o botão de login
         debugPrint("Email : ${emailController.text}");
         debugPrint("Senha : ${passwordController.text}");

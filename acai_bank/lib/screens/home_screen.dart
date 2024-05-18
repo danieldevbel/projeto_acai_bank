@@ -1,7 +1,6 @@
+import 'package:acai_bank/models/balance_model.dart'; // Substitua pelo caminho correto
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../models/balance_model.dart';
 
 // Tela inicial da aplicação
 class HomeScreen extends StatelessWidget {
@@ -12,6 +11,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Açai Bank'), // Título no cabeçalho da tela
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout), // Ícone de logout
+            onPressed: () {
+              Navigator.pushReplacementNamed(
+                  context, '/'); // Navega para a página de login
+            },
+          ),
+        ],
       ),
       body: HomeContent(), // Conteúdo principal da tela
     );
