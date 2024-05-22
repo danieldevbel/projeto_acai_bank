@@ -2,6 +2,7 @@ import 'package:acai_bank/screens/login.dart';
 import 'package:acai_bank/screens/quotation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'models/balance_model.dart';
 import 'screens/home_screen.dart';
