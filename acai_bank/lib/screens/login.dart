@@ -1,3 +1,4 @@
+import 'package:acai_bank/models/checkLogin.dart';
 import 'package:flutter/material.dart';
 
 // Definição da página de login como um widget stateful
@@ -17,6 +18,26 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController =
       TextEditingController(); // Controlador para o campo de senha
   bool rememberUser = false; // Flag para lembrar o usuário
+
+  void showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Login Falhou"),
+          content: Text("Email ou senha incorretos."),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop(); // Fechar o AlertDialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
             color: Colors.white,
           ),
           Text(
-            "AçaiBanck",
+            "AçaiBank",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -174,11 +195,22 @@ class _LoginPageState extends State<LoginPage> {
   // Botão de login
   Widget _buildLoginButton() {
     return ElevatedButton(
-      onPressed: () {
-        Navigator.pushReplacementNamed(context, '/home');
-        // Ação ao pressionar o botão de login
-        debugPrint("Email : ${emailController.text}");
-        debugPrint("Senha : ${passwordController.text}");
+      onPressed: () async {
+        String email = emailController.text;
+        String password = passwordController.text;
+
+        bool loginSuccess = await checkLogin(email, password);
+
+        if (loginSuccess) {
+          Navigator.pushReplacementNamed(context, '/home');
+        } else {
+          // Mostrar diálogo de erro
+          showErrorDialog(context);
+        }
+
+        // Para fins de depuração
+        debugPrint("Email : $email");
+        debugPrint("Senha : $password");
       },
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
