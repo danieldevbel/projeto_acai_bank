@@ -1,7 +1,6 @@
 import 'package:acai_bank/models/checkLogin.dart';
 import 'package:flutter/material.dart';
 
-// Definição da página de login como um widget stateful
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -9,15 +8,12 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-// Estado associado à página de login
 class _LoginPageState extends State<LoginPage> {
-  late Color myColor; // Cor primária utilizada no tema
-  late Size mediaSize; // Tamanho da tela
-  TextEditingController emailController =
-      TextEditingController(); // Controlador para o campo de e-mail
-  TextEditingController passwordController =
-      TextEditingController(); // Controlador para o campo de senha
-  bool rememberUser = false; // Flag para lembrar o usuário
+  late Color myColor;
+  late Size mediaSize;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool rememberUser = false;
 
   void showErrorDialog(BuildContext context) {
     showDialog(
@@ -30,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
             TextButton(
               child: Text("OK"),
               onPressed: () {
-                Navigator.of(context).pop(); // Fechar o AlertDialog
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -41,34 +37,30 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    myColor = Theme.of(context).primaryColor; // Obtém a cor primária do tema
-    mediaSize = MediaQuery.of(context).size; // Obtém o tamanho da tela
+    myColor = Theme.of(context).primaryColor;
+    mediaSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         color: myColor,
         image: DecorationImage(
-          image: const AssetImage("assets/images/bg.png"), // Imagem de fundo
-          fit: BoxFit.cover, // Ajusta a imagem para cobrir toda a tela
-          colorFilter: ColorFilter.mode(myColor.withOpacity(0.2),
-              BlendMode.dstATop), // Aplica um filtro de cor na imagem
+          image: const AssetImage("assets/images/bg.png"),
+          fit: BoxFit.cover,
+          colorFilter:
+              ColorFilter.mode(myColor.withOpacity(0.2), BlendMode.dstATop),
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors
-            .transparent, // Fundo transparente para mostrar a imagem de fundo
+        backgroundColor: Colors.transparent,
         body: Stack(
           children: [
-            Positioned(top: 80, child: _buildTop()), // Posiciona o topo da tela
-            Positioned(
-                bottom: 0,
-                child: _buildBottom()), // Posiciona a parte inferior da tela
+            Positioned(top: 80, child: _buildTop()),
+            Positioned(bottom: 0, child: _buildBottom()),
           ],
         ),
       ),
     );
   }
 
-  // Construção do topo da tela
   Widget _buildTop() {
     return SizedBox(
       width: mediaSize.width,
@@ -76,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            Icons.account_balance, // Ícone de banco
+            Icons.account_balance,
             size: 50,
             color: Colors.white,
           ),
@@ -94,7 +86,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Construção da parte inferior da tela
   Widget _buildBottom() {
     return SizedBox(
       width: mediaSize.width,
@@ -107,13 +98,12 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(32.0),
-          child: _buildForm(), // Constrói o formulário de login
+          child: _buildForm(),
         ),
       ),
     );
   }
 
-  // Construção do formulário de login
   Widget _buildForm() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,22 +119,20 @@ class _LoginPageState extends State<LoginPage> {
         _buildGrey("por favor faça login com suas informações"),
         const SizedBox(height: 60),
         _buildGrey("Email "),
-        _buildInputField(emailController), // Campo de entrada para o e-mail
+        _buildInputField(emailController),
         const SizedBox(height: 40),
         _buildGrey("Senha "),
-        _buildInputField(passwordController,
-            isPassword: true), // Campo de entrada para a senha
+        _buildInputField(passwordController, isPassword: true),
         const SizedBox(height: 20),
-        _buildRememberForgot(), // Seção de "lembrar de mim" e "esqueci a senha"
+        _buildRememberForgot(),
         const SizedBox(height: 20),
-        _buildLoginButton(), // Botão de login
+        _buildLoginButton(),
         const SizedBox(height: 20),
-        _buildOtherLogin(), // Opções de login alternativo
+        _buildOtherLogin(),
       ],
     );
   }
 
-  // Texto cinza reutilizável
   Widget _buildGrey(String text) {
     return Text(
       text,
@@ -152,21 +140,17 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Campo de entrada de texto reutilizável
   Widget _buildInputField(TextEditingController controller,
       {bool isPassword = false}) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        suffixIcon: isPassword
-            ? Icon(Icons.remove_red_eye)
-            : Icon(Icons.done), // Ícone ao lado do campo de entrada
+        suffixIcon: isPassword ? Icon(Icons.remove_red_eye) : Icon(Icons.done),
       ),
-      obscureText: isPassword, // Oculta o texto se for um campo de senha
+      obscureText: isPassword,
     );
   }
 
-  // Seção de "lembrar de mim" e "esqueci a senha"
   Widget _buildRememberForgot() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -192,23 +176,24 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Botão de login
   Widget _buildLoginButton() {
     return ElevatedButton(
       onPressed: () async {
         String email = emailController.text;
         String password = passwordController.text;
 
-        bool loginSuccess = await checkLogin(email, password);
+        String? userName = await checkLogin(email, password);
 
-        if (loginSuccess) {
-          Navigator.pushReplacementNamed(context, '/home');
+        if (userName != null) {
+          Navigator.pushReplacementNamed(
+            context,
+            '/home',
+            arguments: userName,
+          );
         } else {
-          // Mostrar diálogo de erro
           showErrorDialog(context);
         }
 
-        // Para fins de depuração
         debugPrint("Email : $email");
         debugPrint("Senha : $password");
       },
@@ -222,7 +207,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Opções de login alternativo (Facebook, Twitter, Google)
   Widget _buildOtherLogin() {
     return Center(
       child: Column(
@@ -232,15 +216,9 @@ class _LoginPageState extends State<LoginPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Tab(
-                  icon: Image.asset(
-                      "assets/images/facebook.png")), // Ícone do Facebook
-              Tab(
-                  icon: Image.asset(
-                      "assets/images/twitter.png")), // Ícone do Twitter
-              Tab(
-                  icon: Image.asset(
-                      "assets/images/google.png")), // Ícone do Google
+              Tab(icon: Image.asset("assets/images/facebook.png")),
+              Tab(icon: Image.asset("assets/images/twitter.png")),
+              Tab(icon: Image.asset("assets/images/google.png")),
             ],
           ),
         ],

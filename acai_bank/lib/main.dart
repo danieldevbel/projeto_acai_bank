@@ -30,7 +30,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', // Rota inicial
       routes: {
         '/': (context) => LoginPage(), // tela login
-        '/home': (context) => HomeScreen(), // Tela inicial
+        '/home': (context) => HomeScreen(
+              userName: ModalRoute.of(context)!.settings.arguments as String,
+            ), // Tela inicial
         '/transfer': (context) => TransferScreen(), // Tela de transferência
         '/newScreen': (context) => Quotation(), // Nova tela
       },

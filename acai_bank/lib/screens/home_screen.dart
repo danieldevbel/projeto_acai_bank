@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 
 // Tela inicial da aplicação
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final String userName;
+
+  const HomeScreen({super.key, required this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +23,17 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: HomeContent(), // Conteúdo principal da tela
+      body: HomeContent(userName: userName), // Conteúdo principal da tela
     );
   }
 }
 
 // Conteúdo principal da tela inicial
 class HomeContent extends StatelessWidget {
+  final String userName;
+
+  const HomeContent({super.key, required this.userName});
+
   @override
   Widget build(BuildContext context) {
     // Obtém o saldo atual do BalanceModel usando context.watch
@@ -41,7 +47,7 @@ class HomeContent extends StatelessWidget {
         children: [
           // Saudação ao usuário
           Text(
-            'Olá, Usuário!',
+            'Olá, $userName!',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 20), // Espaço entre os elementos
