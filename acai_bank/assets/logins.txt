@@ -2,5 +2,5 @@ user1@example.com,123456,User 1
 teste@teste.com,123456,User Teste
 daniel@teste.com,123456,Daniel Junior
 luciano@teste.com,123456,Luciano Neto
-thiago@teste.com,123456,Williames thiago
-wanderson@teste.com,123456,wanderson
+thiago@teste.com,123456,Williames Thiago
+wanderson@teste.com,123456,Wanderson
