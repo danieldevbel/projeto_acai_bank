@@ -20,11 +20,12 @@ class CurrencyTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: Colors.green),
+        labelStyle: const TextStyle(color: Color.fromARGB(255, 70, 11, 70)),
         border: const OutlineInputBorder(),
         prefixText: prefix,
       ),
-      style: const TextStyle(color: Colors.green, fontSize: 25.0),
+      style: const TextStyle(
+          color: Color.fromARGB(255, 70, 11, 70), fontSize: 25.0),
       onChanged: onChanged,
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
     );

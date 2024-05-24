@@ -8,9 +8,10 @@ import '../models/balance_model.dart';
 class TransferScreen extends StatelessWidget {
   // Controlador para o campo de texto de valor
   final TextEditingController _controller = TextEditingController();
-  void _compartilhar(){
+  void _compartilhar() {
     Share.share("meu primeiro compartilharmento");
   }
+
   TransferScreen({super.key});
 
   @override
@@ -34,11 +35,10 @@ class TransferScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Obtém o valor inserido, realiza a transferência e volta à tela inicial
-                //double amount = double.tryParse(_controller.text) ?? 0;
-                //context.read<BalanceModel>().transfer(amount);
-                //Navigator.pop(context);
+                double amount = double.tryParse(_controller.text) ?? 0;
+                context.read<BalanceModel>().transfer(amount);
                 _compartilhar();
-                
+                Navigator.pop(context);
               },
               child: Text('Transferir'),
             ),

@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    myColor = Theme.of(context).primaryColor;
+    myColor = Color.fromARGB(255, 70, 11, 70);
     mediaSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
