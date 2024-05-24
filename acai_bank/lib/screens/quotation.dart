@@ -10,14 +10,35 @@ class Quotation extends StatefulWidget {
   _QuotationState createState() => _QuotationState();
 }
 
-class _QuotationState extends State<Quotation> {
+class _QuotationState extends State<Quotation> with TickerProviderStateMixin {
   final realController = TextEditingController();
   final dolarController = TextEditingController();
   final euroController = TextEditingController();
   final bitcoinController = TextEditingController();
+
   double dolar = 0.0;
   double euro = 0.0;
   double bitcoin = 0.0;
+
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..repeat(reverse: true);
+    _animation =
+        Tween<double>(begin: 0.8, end: 1.2).animate(_animationController);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   VoidCallback? _realChanged(String text) {
     if (text.isEmpty) {
@@ -29,8 +50,7 @@ class _QuotationState extends State<Quotation> {
     double real = double.parse(text);
     dolarController.text = (real / dolar).toStringAsFixed(2);
     euroController.text = (real / euro).toStringAsFixed(2);
-    bitcoinController.text = (real / bitcoin)
-        .toStringAsFixed(8); // Mais casas decimais para o bitcoin
+    bitcoinController.text = (real / bitcoin).toStringAsFixed(8);
   }
 
   VoidCallback? _dolarChanged(String text) {
@@ -43,8 +63,7 @@ class _QuotationState extends State<Quotation> {
     double dolar = double.parse(text);
     realController.text = (dolar * this.dolar).toStringAsFixed(2);
     euroController.text = (dolar * this.dolar / euro).toStringAsFixed(2);
-    bitcoinController.text = (dolar * this.dolar / bitcoin)
-        .toStringAsFixed(8); // Mais casas decimais para o bitcoin
+    bitcoinController.text = (dolar * this.dolar / bitcoin).toStringAsFixed(8);
   }
 
   VoidCallback? _euroChanged(String text) {
@@ -57,8 +76,7 @@ class _QuotationState extends State<Quotation> {
     double euro = double.parse(text);
     realController.text = (euro * this.euro).toStringAsFixed(2);
     dolarController.text = (euro * this.euro / dolar).toStringAsFixed(2);
-    bitcoinController.text = (euro * this.euro / bitcoin)
-        .toStringAsFixed(8); // Mais casas decimais para o bitcoin
+    bitcoinController.text = (euro * this.euro / bitcoin).toStringAsFixed(8);
   }
 
   VoidCallback? _bitcoinChanged(String text) {
@@ -86,12 +104,19 @@ class _QuotationState extends State<Quotation> {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
-              return const Center(
-                child: Text(
-                  "Aguarde...",
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 70, 11, 70), fontSize: 30.0),
-                  textAlign: TextAlign.center,
+              return Center(
+                child: AnimatedBuilder(
+                  animation: _animation,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: _animation.value,
+                      child: Icon(
+                        Icons.attach_money,
+                        color: Color.fromARGB(255, 70, 11, 70),
+                        size: 100.0,
+                      ),
+                    );
+                  },
                 ),
               );
             default:
@@ -115,7 +140,7 @@ class _QuotationState extends State<Quotation> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       const Icon(Icons.attach_money,
-                          size: 180.0, color: Color.fromARGB(255, 70, 11, 70)),
+                          size: 160.0, color: Color.fromARGB(255, 70, 11, 70)),
                       CurrencyTextField(
                           label: "Reais",
                           prefix: "R\$ ",
