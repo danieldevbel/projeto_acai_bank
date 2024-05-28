@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
               userName: ModalRoute.of(context)!.settings.arguments as String,
             ), // Tela inicial
         '/transfer': (context) => TransferScreen(), // Tela de transferência
-        '/newScreen': (context) => Quotation(), // Nova tela
+        '/conversor': (context) => Quotation(), // Nova tela
       },
     );
   }
