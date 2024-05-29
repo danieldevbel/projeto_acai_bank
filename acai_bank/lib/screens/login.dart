@@ -1,6 +1,7 @@
 import 'package:acai_bank/models/checkLogin.dart';
 import 'package:flutter/material.dart';
 
+// Tela de login que vai ser um StatefulWidget pra poder mudar de estado
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -8,13 +9,18 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
+// Aqui tá o estado da tela de login
 class _LoginPageState extends State<LoginPage> {
+  // Variáveis que vamos usar no layout
   late Color myColor;
   late Size mediaSize;
+
+  // Controladores pros campos de email e senha
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool rememberUser = false;
+  bool rememberUser = false; // Checkbox pra lembrar do usuário
 
+  // Função pra mostrar um diálogo de erro se o login falhar
   void showErrorDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -37,11 +43,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Cor personalizada pro fundo
     myColor = Color.fromARGB(255, 70, 11, 70);
-    mediaSize = MediaQuery.of(context).size;
+    mediaSize = MediaQuery.of(context).size; // Tamanho da tela
     return Container(
       decoration: BoxDecoration(
-        color: myColor,
+        color: myColor, // Cor de fundo
         image: DecorationImage(
           image: const AssetImage("assets/images/bg.png"),
           fit: BoxFit.cover,
@@ -53,7 +60,9 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
+            // Parte de cima do layout
             Positioned(top: 80, child: _buildTop()),
+            // Parte de baixo do layout
             Positioned(bottom: 0, child: _buildBottom()),
           ],
         ),
@@ -61,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Construindo a parte de cima do layout
   Widget _buildTop() {
     return SizedBox(
       width: mediaSize.width,
@@ -86,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Construindo a parte de baixo do layout
   Widget _buildBottom() {
     return SizedBox(
       width: mediaSize.width,
@@ -104,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Construindo o formulário de login
   Widget _buildForm() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,6 +145,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Função pra criar textos cinzas
   Widget _buildGrey(String text) {
     return Text(
       text,
@@ -140,6 +153,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Função pra criar os campos de texto
   Widget _buildInputField(TextEditingController controller,
       {bool isPassword = false}) {
     return TextField(
@@ -151,6 +165,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Função pra criar a linha com o checkbox e o link de esqueci a senha
   Widget _buildRememberForgot() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -176,12 +191,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Função pra criar o botão de login
   Widget _buildLoginButton() {
     return ElevatedButton(
       onPressed: () async {
         String email = emailController.text;
         String password = passwordController.text;
 
+        // Chamando a função de login e verificando o retorno
         String? userName = await checkLogin(email, password);
 
         if (userName != null) {
@@ -207,6 +224,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Função pra criar a opção de login com outras plataformas
   Widget _buildOtherLogin() {
     return Center(
       child: Column(
